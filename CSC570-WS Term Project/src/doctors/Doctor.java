@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 @XmlRootElement(name = "doctor")
 public class Doctor implements Comparable<Doctor> {
     private String drName;   // the doctors name
-    // private String what;  // his/her prediction
     private int    drId;    // identifier used as lookup-key
 //    private String drExtId; //external id for the doctor
     private ArrayList<Patient> patientList = new ArrayList<Patient>(); // the list of patients for the doctor
