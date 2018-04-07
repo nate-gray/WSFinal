@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="src/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="src/jackson-annotations-2.1.1.jar"/>
+	<classpathentry kind="lib" path="src/jackson-core-2.1.1.jar"/>
+	<classpathentry kind="lib" path="src/jackson-databind-2.1.1.jar"/>
+	<classpathentry kind="lib" path="src/jersey-core-1.10.jar"/>
+	<classpathentry kind="lib" path="src/jersey-server-1.10.jar"/>
+	<classpathentry kind="lib" path="src/jersey-servlet-1.10.jar"/>
+	<classpathentry kind="lib" path="/Users/n.gray/Documents/CSC570 - Web Services/Tomcat/apache-tomcat-9.0.4/lib/servlet-api.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
