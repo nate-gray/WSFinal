@@ -10,30 +10,27 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 @XmlRootElement(name = "doctor")
 public class Doctor implements Comparable<Doctor> {
     private String drName;   // the doctors name
-    // private String what;  // his/her prediction
     private int    drId;    // identifier used as lookup-key
-//    private String drExtId; //external id for the doctor
     private ArrayList<Patient> patientList = new ArrayList<Patient>(); // the list of patients for the doctor
 
     public Doctor() { }
 
     @Override
     public String toString() {
-    	String test = "\n";
+    	String patientList_string = "\n";
     	for(int i = 0; i < patientList.size(); i++){
-    		test += i + ": " + patientList.get(i).getPatientName() + " - " + patientList.get(i).getInsuranceNum() + "\n";
-    	}
-    		
-    	return String.format("%2d: ", drId) + drName + ": " + " ==> " + test + "\n";
+    		patientList_string += i + ": " + patientList.get(i).getPatientName() + " - " + patientList.get(i).getInsuranceNum() + "\n";
+    	}   		
+    	return String.format("%2d: ", drId) + drName + ": " + " ==> " + patientList_string + "\n";
     }
     
-    //** properties
     public void setDrName(String drName) {
-	this.drName = drName;
+    	this.drName = drName;
     }
+    
     @XmlElement
     public String getDrName() {
-	return this.drName;
+    	return this.drName;
     }
 
     public void addPatient(Patient patient) {
@@ -47,24 +44,17 @@ public class Doctor implements Comparable<Doctor> {
     }
 
     public void setDrId(int id) {
-	this.drId = id;
+    	this.drId = id;
     }
+    
     @XmlElement
     public int getDrId() {
-	return this.drId;
+    	return this.drId;
     }
 
     // implementation of Comparable interface
     public int compareTo(Doctor other) {
-	return this.drId - other.drId;
+    	return this.drId - other.drId;
     }
-    
-
-//	public String getDrExtId() {
-//		return drExtId;
-//	}
-//
-//	public void setDrExtId(String drExtId) {
-//		this.drExtId = drExtId;
-//	}	
+	
 }

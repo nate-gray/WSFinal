@@ -30,30 +30,30 @@ public class DoctorsList {
     @Override
     public String toString() {
     	String s = "";
-    	for (Doctor p : doctors) s += p.toString();
+    	for (Doctor d : doctors) s += d.toString();
     	return s;
     }
 
     public Doctor find(int id) {
-	Doctor doc = null;
-	// Search the list -- for now, the list is short enough that
-	// a linear search is ok but binary search would be better if the
-	// list got to be an order-of-magnitude larger in size.
-	for (Doctor p : doctors) {
-	    if (p.getDrId() == id) {
-		doc = p;
-		break;
-	    }
-	}	
-	return doc;
+    	Doctor doc = null;
+    	// Search the list -- for now, the list is short enough that
+    	// a linear search is ok but binary search would be better if the
+    	// list got to be an order-of-magnitude larger in size.
+    	for (Doctor d : doctors) {
+    		if (d.getDrId() == id) {
+    			doc = d;
+    			break;
+    		}
+    	}	
+    	return doc;
     }
+    
     public int add(String drName) {
-	int id = drId.incrementAndGet();
-	Doctor p = new Doctor();
-	p.setDrName(drName);
-	//p.setDrExtId(drExtID);
-	p.setDrId(id);
-	doctors.add(p);
-	return id;
+    	int id = drId.incrementAndGet();
+    	Doctor d = new Doctor();
+    	d.setDrName(drName);
+    	d.setDrId(id);
+    	doctors.add(d);
+    	return id;
     }
 }
