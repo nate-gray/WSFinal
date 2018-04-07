@@ -80,7 +80,7 @@ public class DoctorsRS {
     public Response create(@FormParam("drName") String drName) { 
     	checkContext();
     	String msg = null;
-    	// Require both properties to create.
+    	// Require dr property. 
     	if (drName == null) { 
     		msg = "Property 'drName' is missing.\n";
     		return Response.status(Response.Status.BAD_REQUEST).
@@ -101,7 +101,7 @@ public class DoctorsRS {
     	checkContext();
     	String msg = null;
     	// Require all properties to create.
-    	if (drId == null || pntName == null || insNum == null) { //Removed:  || drExtId == null
+    	if (drId == null || pntName == null || insNum == null) { 
     		msg = "Missing the doctor id, patient name, or insurance number. \n";
     		return Response.status(Response.Status.BAD_REQUEST).
 		                                   entity(msg).
@@ -112,24 +112,23 @@ public class DoctorsRS {
     	int id = Integer.parseInt(drId);
     	Patient pnt = new Patient(pntName, insNum);
     	dlist.find(id).addPatient(pnt);
-    	msg = pntName + " - " + insNum + " has been added to " + dlist.find(id).getDrName() + " 's patients. \n";
+    	msg = pntName + " - " + insNum + " has been added to " + dlist.find(id).getDrName() + "'s patients. \n";
     	return Response.ok(msg, "text/plain").build();
     }
 
     @PUT
     @Produces({MediaType.TEXT_PLAIN})
     @Path("/update")
-    public Response update(@FormParam("id") int id,  
-			   @FormParam("drName") String drName) { // removed: @FormParam("drExtId") String drExtId
+    public Response update(@FormParam("id") int id, @FormParam("drName") String drName) { 
     	checkContext();
 
     	// Check that sufficient data are present to do an edit.
     	String msg = null;
-    	if (drName == null) // removed: && drExtId == null
-    		msg = "Neither drName nor drExtId is given: nothing to edit.\n";
+    	if (drName == null) 
+    		msg = "drName is not present in request: nothing to edit.\n";
 
-    	Doctor p = dlist.find(id);
-    	if (p == null)
+    	Doctor d = dlist.find(id);
+    	if (d == null)
     		msg = "There is no doctor with ID " + id + "\n";
 
     	if (msg != null)
@@ -138,7 +137,7 @@ public class DoctorsRS {
 		                                   type(MediaType.TEXT_PLAIN).
 		                                   build();
     	// Update.
-    	if (drName != null) p.setDrName(drName);
+    	if (drName != null) d.setDrName(drName);
     	msg = "Doctor " + id + " has been updated.\n";
     	return Response.ok(msg, "text/plain").build();
     }
@@ -149,15 +148,15 @@ public class DoctorsRS {
     public Response delete(@PathParam("id") int id) {
     	checkContext();
     	String msg = null;
-    	Doctor p = dlist.find(id);
-    	if (p == null) {
+    	Doctor d = dlist.find(id);
+    	if (d == null) {
     		msg = "There is no doctor with ID " + id + ". Cannot delete.\n";
     		return Response.status(Response.Status.BAD_REQUEST).
 		                                   entity(msg).
 		                                   type(MediaType.TEXT_PLAIN).
 		                                   build();
     	}
-    	dlist.getDoctors().remove(p);
+    	dlist.getDoctors().remove(d);
     	msg = "Doctor " + id + " deleted.\n";
 
     	return Response.ok(msg, "text/plain").build();
@@ -181,7 +180,6 @@ public class DoctorsRS {
     			int i = 0;
     			String record = null;
     				while ((record = reader.readLine()) != null) {
-						//String[] parts = record.split("!");
 						addDoctor(record);
     				}
     		}
@@ -234,10 +232,10 @@ public class DoctorsRS {
     }
 
     // PredictionsList --> JSON document
-    private String toJson(DoctorsList plist) {
+    private String toJson(DoctorsList dlist) {
     	String json = "If you see this, there's a problem.";
     	try {
-    		json = new ObjectMapper().writeValueAsString(plist);
+    		json = new ObjectMapper().writeValueAsString(dlist);
     	}
     	catch(Exception e) { }
     	return json;
