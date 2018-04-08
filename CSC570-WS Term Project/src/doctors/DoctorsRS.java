@@ -94,6 +94,7 @@ public class DoctorsRS {
     	return Response.ok(msg, "text/plain").build();
     }
     
+    
     @POST
     @Produces({MediaType.TEXT_PLAIN})
     @Path("/add")
@@ -108,7 +109,7 @@ public class DoctorsRS {
 		                                   type(MediaType.TEXT_PLAIN).
 		                                   build();
     	}	    
-    	// Otherwise, create the Prediction and add it to the collection.
+    	
     	int id = Integer.parseInt(drId);
     	Patient pnt = new Patient(pntName, insNum);
     	dlist.find(id).addPatient(pnt);
