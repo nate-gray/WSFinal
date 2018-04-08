@@ -2,6 +2,8 @@ package doctors;
 
 import java.io.InputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -94,7 +96,7 @@ public class DoctorsRS {
     	return Response.ok(msg, "text/plain").build();
     }
     
-    
+    // Add a single patient via CURL request
     @POST
     @Produces({MediaType.TEXT_PLAIN})
     @Path("/add")
@@ -117,6 +119,42 @@ public class DoctorsRS {
     	return Response.ok(msg, "text/plain").build();
     }
 
+    // Add multiple patients via db file
+     
+    @POST
+    @Produces({MediaType.TEXT_PLAIN})
+    @Path("/addList")
+    public Response create(@FormParam("dbFile") File dbFile) { 
+    	checkContext();
+    	String msg = null;
+    	Doctor doc = null;
+    	int i = 0;
+    	
+    	if(dbFile != null) {
+    		try {
+    			BufferedReader reader = new BufferedReader(new FileReader(dbFile));
+    			String record = null;
+    			while((record = reader.readLine()) != null) {
+    				String[] parts = record.split("!");
+    				Patient patient = new Patient();
+    				patient.setPatientName(parts[0]);
+    				patient.setInsuranceNum(parts[1]);
+    				doc = dlist.find(Integer.parseInt(parts[2]));
+    				doc.addPatient(patient);
+    				i++;
+    			}
+    		}
+    		
+    		catch (Exception ex) {
+    			throw new RuntimeException("I/O failed!");
+    		}
+    		
+    		msg = i + " patients added from db local file. \n";
+    	}
+
+    	return Response.ok(msg, "text/plain").build();
+    }
+    
     @PUT
     @Produces({MediaType.TEXT_PLAIN})
     @Path("/update")
