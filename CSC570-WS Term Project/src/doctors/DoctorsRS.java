@@ -149,7 +149,7 @@ public class DoctorsRS {
     			throw new RuntimeException("I/O failed!");
     		}
     		
-    		msg = i + " patients added from db local file.";
+    		msg = i + " patients added from db local file. \n";
     	}
 
     	return Response.ok(msg, "text/plain").build();
